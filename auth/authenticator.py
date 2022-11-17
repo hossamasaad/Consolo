@@ -10,6 +10,25 @@ class Authenticator:
         self.users = {}
         self.emails = []
 
+    def get_user(self, username):
+        """
+        serach if user exists
+
+        Args:
+            username: user's name we will search for
+        
+        Returns:
+            user: The user object if exists
+        
+        Raises:
+            InvalidUsername: If user doesn't exist
+        """
+        try:
+            user = self.users[username]
+        except KeyError:
+            raise InvalidUsername(username)
+        else:
+            return user
 
     def register(self, username, email, password):
         """
@@ -28,7 +47,6 @@ class Authenticator:
             EmailAlreadyExists   : if the email already exists
             PasswordTooShort     : if the password too short 
         """
-
         if username in self.users:
             raise UsernameAlreadyExists(username)   
         elif email in self.emails:
@@ -58,7 +76,6 @@ class Authenticator:
             InvalidUsername: if the username is not valid
             InvalidPassword: if the password is not true
         """
-
         try:
             user = self.users[username]
         except:

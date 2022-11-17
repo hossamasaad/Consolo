@@ -1,3 +1,4 @@
+import os
 from exceptions import *
 
 class Post:
@@ -18,7 +19,7 @@ class Post:
         """
         print("-----------------------------")
         print("Subject: {}".format(self.subject))
-        print("-----------------------------")
+        print("-------- ")
         print(self.body)
     
     
@@ -44,6 +45,7 @@ class AddPost:
             NotLoggedInError: If the user isn't logged in
             PermissionError : If permission doesn't exists
         """
+        os.system("clear")
         subject = input("Enter the subject: ")
         body    = input("Enter post body  : ")
         post    = Post(subject, body)
@@ -51,6 +53,7 @@ class AddPost:
         try:
             self.authorizor.check_permission("add post", self.username)
             self.authenticator.users[self.username].posts.append(post)
+            os.system("clear")
             print("-----------------------------")
             print("Your post added successfully")
             print("-----------------------------")

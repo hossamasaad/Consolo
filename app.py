@@ -1,5 +1,7 @@
+import os
 from post import AddPost
-from user import Login, Register
+from friend import Friend
+from user import Login, Logout, Register
 from profile import ShowProfile
 from auth import Authenticator, Authorizor
 
@@ -44,6 +46,11 @@ class App:
         """
         Show command list for new users, get user command and excute the function
         """
+        os.system("clear")
+        print("-----------------------------")
+        print("CONSOLO: Welcome Back :)")
+        print("-----------------------------")
+        
         answer = ""
         print(
         """
@@ -64,10 +71,13 @@ class App:
                 self.username = func()
                 self.user_menu = {
                     "post"      : AddPost(self.username, authorizor, authenticator).post,
-                    "add"       : None,
-                    "home"      : None,
                     "profile"   : ShowProfile(self.username, authorizor, authenticator).show,
+                    "add-f"     : Friend(self.username, authorizor, authenticator).send_friend_request,
+                    "show-f"    : Friend(self.username, authorizor, authenticator).show_friends,
+                    "show-rf"   : Friend(self.username, authorizor, authenticator).show_friend_requests,
+                    "home"      : None,
                     "message"   : None,
+                    "logout"    : Logout(self.username, authorizor, authenticator).logout,
                 }
             else:
                 func()
@@ -83,7 +93,9 @@ class App:
             Please enter a command:
             \tpost    \tTo add a post
             \tprofile \tTo show a profile
-            \tadd     \tTo add a friend
+            \tadd-f   \tTo add a friend
+            \tshow-f  \tTo Show your friends
+            \tshow-rf \tTo Show your friend requests
             \tlogout  \tTo logout
             """
         )
@@ -92,8 +104,12 @@ class App:
         try:
             func = self.user_menu[answer]
         except KeyError:
+            os.system("clear")
             print("{} is not a valid option".format(answer))
+            print("--------------------------------------")
         else:
+            if answer == "logout":
+                self.username = None
             func()
 
 

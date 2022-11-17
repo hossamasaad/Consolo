@@ -17,6 +17,8 @@ class User:
         self.email = email
         self.password = self._encrypt_password(password)
         self.posts = []
+        self.friends = set()
+        self.friend_requests = set()
         self.is_logged_in = False
     
     def _encrypt_password(self, password):
@@ -80,7 +82,6 @@ class Login:
 
 
 class Register:
-    
     def __init__(self, authorizor, authenticator) -> None:
         """
         Create a Register state used when user registering
@@ -119,3 +120,24 @@ class Register:
                 print("-----------------------------")
                 print("You registered successfully")
                 print("-----------------------------")
+
+class Logout:
+    def __init__(self, username, authorizor, authenticator) -> None:
+        """
+        Create a Logout state used when user log out
+
+        Args:
+            authorizor: authorizor will manage permissions
+            authenticator: authenticator will manage users
+        """
+        self.authorizor = authorizor
+        self.authenticator = authenticator
+        self.username = username
+    
+    def logout(self):
+        """
+        logout        
+        """
+        user = self.authenticator.users[self.username]
+        user.is_logged_in = False
+        os.system("clear")

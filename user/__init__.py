@@ -1,1 +1,1 @@
-from user.user import User, Login, Register
+from user.user import User, Login, Register, Logout

@@ -1,8 +1,9 @@
 import os
+from datetime import datetime
 from exceptions import *
 
 class Post:
-    def __init__(self, subject, body) -> None:
+    def __init__(self, subject, body, username) -> None:
         """
         Construct a Post
 
@@ -12,7 +13,15 @@ class Post:
         """
         self.subject = subject
         self.body = body
-    
+        self.date = datetime.now()
+        self.owner = username
+
+    def __lt__(self, other):
+         """
+         Define less than to sort posts according to post date
+         """
+         return self.date < other.date
+
     def show_post(self):
         """
         Show the post
@@ -48,7 +57,7 @@ class AddPost:
         os.system("clear")
         subject = input("Enter the subject: ")
         body    = input("Enter post body  : ")
-        post    = Post(subject, body)
+        post    = Post(subject, body, self.username)
 
         try:
             self.authorizor.check_permission("add post", self.username)

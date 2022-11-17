@@ -1,5 +1,7 @@
 import os
+import time
 from post import AddPost
+from home import Home
 from friend import Friend
 from user import Login, Logout, Register
 from profile import ShowProfile
@@ -75,7 +77,7 @@ class App:
                     "add-f"     : Friend(self.username, authorizor, authenticator).send_friend_request,
                     "show-f"    : Friend(self.username, authorizor, authenticator).show_friends,
                     "show-rf"   : Friend(self.username, authorizor, authenticator).show_friend_requests,
-                    "home"      : None,
+                    "home"      : Home(self.username, authorizor, authenticator).show_homepage,
                     "message"   : None,
                     "logout"    : Logout(self.username, authorizor, authenticator).logout,
                 }
@@ -91,6 +93,7 @@ class App:
         print(
             """
             Please enter a command:
+            \thome   \tTo show homepage
             \tpost    \tTo add a post
             \tprofile \tTo show a profile
             \tadd-f   \tTo add a friend
@@ -105,6 +108,7 @@ class App:
             func = self.user_menu[answer]
         except KeyError:
             os.system("clear")
+            print("--------------------------------------")
             print("{} is not a valid option".format(answer))
             print("--------------------------------------")
         else:
@@ -124,8 +128,13 @@ class App:
                 else:
                     self.logged_user()
         finally:
+            os.system("clear")
+            print("--------------------------------------")
             print("Thank you for using Consolo")
-            
+            print("--------------------------------------")
+            time.sleep(2)
+            os.system("clear")
+
 
 if __name__ == '__main__':
     App().start()

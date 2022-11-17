@@ -50,8 +50,8 @@ class Friend:
             print("---------------------------------") 
             print("You are still ALONE ;(")
 
-        for friend in self.user.friends:
-            os.system("clear")
+        os.system("clear")
+        for friend in self.user.friends:    
             print("---------------------------------") 
             print("Friend: {}".format(friend.username))
         print("---------------------------------")
@@ -61,6 +61,7 @@ class Friend:
         """
         Show user friend requests
         """
+
         if not len(self.user.friend_requests):
             os.system("clear")
             print("---------------------------------") 
@@ -68,8 +69,8 @@ class Friend:
             print("---------------------------------")
             return
 
+        os.system("clear")
         for request in self.user.friend_requests:
-            os.system("clear")
             print("---------------------------------") 
             print("request: {}".format(request.username))
         print("---------------------------------")

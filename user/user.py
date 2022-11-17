@@ -1,3 +1,4 @@
+import time
 import os
 import hashlib
 from exceptions import *
@@ -78,6 +79,7 @@ class Login:
                 print("-----------------------------")
                 print("You Logged in successfully")
                 print("-----------------------------")
+                time.sleep(2)
                 return username
 
 
@@ -120,6 +122,8 @@ class Register:
                 print("-----------------------------")
                 print("You registered successfully")
                 print("-----------------------------")
+                time.sleep(2)
+
 
 class Logout:
     def __init__(self, username, authorizor, authenticator) -> None:
@@ -140,4 +144,8 @@ class Logout:
         """
         user = self.authenticator.users[self.username]
         user.is_logged_in = False
-        os.system("clear")
+        os.system('clear')
+        print("-----------------------------")
+        print("You Logged out successfully")
+        print("-----------------------------")
+        time.sleep(2)

@@ -1,11 +1,10 @@
 import os
+import sys
 import time
-from post import AddPost
-from home import Home
-from friend import Friend
-from user import Login, Logout, Register
-from profile import ShowProfile
-from auth import Authenticator, Authorizor
+sys.path.append(os.path.realpath('..'))
+from app import (AddPost, Home, Friend, Login, Logout, Register,
+                 ShowProfile, Authenticator, Authorizor)
+
 
 # Start authenticator
 authenticator = Authenticator()
@@ -19,7 +18,7 @@ class App:
         Start the app
         """
         self.username = None
-        self.permissions = ["add post", "add friend", "show home", "show profile", "send message"]
+        self.permissions = ["add post", "send friend request", "logout", "show home", "show profile", "send message"]
         self.add_permissions()
         self.start_menu = {
             "login"   : Login(authorizor, authenticator).login,
@@ -93,7 +92,7 @@ class App:
         print(
             """
             Please enter a command:
-            \thome   \tTo show homepage
+            \thome    \tTo show homepage
             \tpost    \tTo add a post
             \tprofile \tTo show a profile
             \tadd-f   \tTo add a friend
@@ -113,8 +112,9 @@ class App:
             print("--------------------------------------")
         else:
             if answer == "logout":
-                self.username = None
-            func()
+                self.username = func()
+            else:
+                func()
 
 
     def start(self):
@@ -135,6 +135,6 @@ class App:
             time.sleep(2)
             os.system("clear")
 
-
+  
 if __name__ == '__main__':
     App().start()

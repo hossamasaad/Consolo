@@ -1,6 +1,6 @@
 import os
 from datetime import datetime
-from exceptions import *
+from app.exceptions import *
 
 class Post:
     def __init__(self, subject, body, username) -> None:
@@ -68,6 +68,13 @@ class AddPost:
             print("-----------------------------")
             
         except NotLoggedInError:
+            os.system("clear")
+            print("---------------------------------")
             print("You should login first")
+            print("---------------------------------")
+
         except PermissionError:
+            os.system("clear")
+            print("-----------------------------------------")
             print("You don't have the permission to add post")
+            print("-----------------------------------------")

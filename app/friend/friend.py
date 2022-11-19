@@ -1,5 +1,5 @@
 import os
-from exceptions import *
+from app.exceptions import *
 import time
 
 class Friend:
@@ -27,6 +27,7 @@ class Friend:
         """
         friendname = input("Enter friend name: ")
         try:
+            self.authorizor.check_permission("send friend request", self.username)
             friend = self.authenticator.get_user(friendname)
             friend.friend_requests.add(self.user)
         except InvalidUsername:
@@ -34,11 +35,16 @@ class Friend:
             print("---------------------------------")
             print("The name isn't valid")
             print("---------------------------------")
+        except PermissionError:
+            os.system("clear")
+            print("-----------------------------------------")
+            print("You don't have the permission to add post")
+            print("-----------------------------------------")
         else:
             os.system("clear")
-            print("---------------------------------")
+            print("------------------------------------------")
             print("Your friend request was sent successfully")
-            print("---------------------------------")
+            print("------------------------------------------")
     
 
     def show_friends(self):

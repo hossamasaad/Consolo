@@ -1,4 +1,4 @@
-from exceptions import *
+from app.exceptions import *
 
 class Authorizor:
     

@@ -1,7 +1,7 @@
 import time
 import os
 import hashlib
-from exceptions import *
+from app.exceptions import *
 
 class User:
 
@@ -143,9 +143,20 @@ class Logout:
         logout        
         """
         user = self.authenticator.users[self.username]
-        user.is_logged_in = False
-        os.system('clear')
-        print("-----------------------------")
-        print("You Logged out successfully")
-        print("-----------------------------")
-        time.sleep(2)
+
+        try:
+            self.authorizor.check_permission("logout", self.username)
+        except PermissionError:
+            os.system("clear")
+            print("-----------------------------------------")
+            print("You don't have the permission to logout")
+            print("-----------------------------------------")
+            time.sleep(2)
+            return self.username
+        else:
+            user.is_logged_in = False
+            os.system('clear')
+            print("-----------------------------")
+            print("You Logged out successfully")
+            print("-----------------------------")
+            time.sleep(2)

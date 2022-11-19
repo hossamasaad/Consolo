@@ -1,5 +1,5 @@
 import os
-from exceptions import *
+from app.exceptions import *
 
 class Profile:
 

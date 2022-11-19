@@ -1,5 +1,5 @@
-from user import User
-from exceptions import *
+from app import User
+from app.exceptions import *
 
 class Authenticator:
 
